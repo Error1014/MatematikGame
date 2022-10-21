@@ -44,7 +44,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 25;
-        PhotonNetwork.CreateRoom(RoomName.text,roomOptions,TypedLobby.Default);
+        PhotonNetwork.JoinOrCreateRoom(RoomName.text,roomOptions,TypedLobby.Default);
         PhotonNetwork.LoadLevel("SampleScene");
     }
 
@@ -67,5 +67,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
                 listItem.SetInfo(info);
             }
         }
+    }
+
+    public override void OnJoinedRoom()
+    {
+        PhotonNetwork.LoadLevel("SampleScene");
     }
 }

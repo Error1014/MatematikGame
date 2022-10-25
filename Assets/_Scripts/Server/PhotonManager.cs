@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UIElements;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
@@ -13,6 +14,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] ListItem itemPrefab;
     [SerializeField] Transform content;
     [SerializeField] GameObject settingBlock;
+
+    List<RoomInfo> allRoomsInfo = new List<RoomInfo>();
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -61,11 +64,19 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         foreach (RoomInfo info in roomList)
-        {
+{
+            for (int i = 0; i < allRoomsInfo.Count; i++)
+            {
+                if (allRoomsInfo[i].masterClientId==info.masterClientId)
+                {
+                    return;
+                }
+            }
             ListItem listItem = Instantiate(itemPrefab, content);
             if (listItem!=null)
             {
                 listItem.SetInfo(info);
+                allRoomsInfo.Add(info);
             }
         }
     }
@@ -75,6 +86,16 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         settingBlock.SetActive(true);
     }
     public override void OnJoinedRoom()
+    {
+        PhotonNetwork.LoadLevel("SampleScene");
+    }
+
+    //выход из комнаты
+    public void LeaveButton()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+    public override void OnLeftRoom()
     {
         PhotonNetwork.LoadLevel("SampleScene");
     }

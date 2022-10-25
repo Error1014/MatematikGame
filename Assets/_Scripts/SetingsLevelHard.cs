@@ -26,10 +26,34 @@ public class SetingsLevelHard : MonoBehaviour
     [SerializeField] private SelectOperationToggle SelectOperation;
     [SerializeField] WriteNumbText writeNumbText;
 
-    [SerializeField] InfoMessage info;
+    public InfoMessage info;
 
     //settingData = JsonUtility.FromJson<SettingData>(File.ReadAllText(path));//чтение данных
     //File.WriteAllText(path, JsonUtility.ToJson(settingData));//запись данных
+    #region выбор path в зависимости от платформы
+    private void GetPath()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        path = Path.Combine(Application.persistentDataPath, "Save.json");
+#else
+        path = Path.Combine(Application.dataPath, "Save.json");
+#endif
+    }
+    #endregion
+
+    #region чтение данных
+    private void ReadData()
+    {
+        settingData = JsonUtility.FromJson<SettingData>(File.ReadAllText(path));//чтение данных
+    }
+    #endregion
+
+    #region запись данных
+    private void WriteData()
+    {
+        File.WriteAllText(path, JsonUtility.ToJson(settingData));//запись данных
+    }
+    #endregion
 
     void Awake()
     {
@@ -123,30 +147,7 @@ public class SetingsLevelHard : MonoBehaviour
     }
 
 
-    #region выбор path в зависимости от платформы
-    private void GetPath()
-    {
-#if UNITY_ANDROID && !UNITY_EDITOR
-        path = Path.Combine(Application.persistentDataPath, "Save.json");
-#else
-        path = Path.Combine(Application.dataPath, "Save.json");
-#endif
-    }
-    #endregion
 
-    #region чтение данных
-    private void ReadData()
-    {
-        settingData = JsonUtility.FromJson<SettingData>(File.ReadAllText(path));//чтение данных
-    }
-    #endregion
-
-    #region запись данных
-    private void WriteData()
-    {
-        File.WriteAllText(path, JsonUtility.ToJson(settingData));//запись данных
-    }
-    #endregion
 
 
 

@@ -13,7 +13,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] InputField RoomName;
     [SerializeField] ListItem itemPrefab;
     [SerializeField] Transform content;
-    [SerializeField] GameObject settingBlock;
+    [SerializeField] SetingsLevelHard settingBlock;
 
     List<RoomInfo> allRoomsInfo = new List<RoomInfo>();
     private void Start()
@@ -44,6 +44,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void CreateRoomButton()
     {
+        if (settingBlock.info.gameObject.active)
+        {
+            return;
+        }
         if (!PhotonNetwork.IsConnected)return;
         
         RoomOptions roomOptions = new RoomOptions();
@@ -83,7 +87,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void OnSettinLevel()
     {
-        settingBlock.SetActive(true);
+        settingBlock.gameObject.SetActive(true);
     }
     public override void OnJoinedRoom()
     {

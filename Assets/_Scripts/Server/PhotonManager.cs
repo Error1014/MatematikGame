@@ -12,6 +12,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     [SerializeField] InputField RoomName;
     [SerializeField] ListItem itemPrefab;
     [SerializeField] Transform content;
+    [SerializeField] GameObject settingBlock;
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -22,7 +23,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         TextBoxBlock.SetActive(true);
     }
-    public void CloseTextBoBlock()
+    public void CloseTextBlock()
     {
         TextBoxBlock.SetActive(false);
     }
@@ -69,6 +70,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public void OnSettinLevel()
+    {
+        settingBlock.SetActive(true);
+    }
     public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel("SampleScene");

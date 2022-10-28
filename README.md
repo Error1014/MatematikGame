@@ -22,6 +22,11 @@
 <br>
 ![image](https://user-images.githubusercontent.com/80624046/198564246-f9d2d936-046b-4549-9d08-86962e61ea9e.png)
 <br>
+При выборе верного варианта ответа, панель с ответом подсвечивается зеленым, а при выборе другого варианта красным.
+![image](https://user-images.githubusercontent.com/80624046/198564449-faeb9126-4685-4b78-ab6a-a1af57273016.png)
+<br>
+![image](https://user-images.githubusercontent.com/80624046/198564505-ef8042c9-2bfd-43cb-bcd9-58ccc21ce6db.png)
+<br>
 
 ### 2.3 Операционная среда
 ### 2.4 Ограничения дизайна и реализации

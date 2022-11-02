@@ -21,6 +21,6 @@ public class PauseManager : MonoBehaviour
     }
     public void NavigateHome()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("SelectLobbyScene");
     }
 }

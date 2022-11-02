@@ -7,10 +7,13 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    
 
     public void Leave()
     {
-
+        Debug.Log("ClickExit");
+        PhotonNetwork.LeaveLobby();
+        Debug.Log("You Exit");
     }
     public override void OnLeftRoom()
     {

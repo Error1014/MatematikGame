@@ -201,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471520277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 19.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83abfed4e0c5b21479a556d02edde3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1758317558
+--- !u!1 &808814771
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,44 +228,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1758317559}
-  - component: {fileID: 1758317560}
+  - component: {fileID: 808814772}
+  - component: {fileID: 808814773}
   m_Layer: 0
-  m_Name: PhotonManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1758317559
+--- !u!4 &808814772
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758317558}
+  m_GameObject: {fileID: 808814771}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6475026, y: -0.0035293978, z: 242.99123}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1758317560
+--- !u!114 &808814773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758317558}
-  m_Enabled: 0
+  m_GameObject: {fileID: 808814771}
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06a9cd5d7cf600a4982b8f74c6523ad4, type: 3}
+  m_Script: {fileID: 11500000, guid: ef50af0ea8251be4997671066b25bbee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextBoxBlock: {fileID: 0}
-  region: eu
-  RoomName: {fileID: 0}
-  itemPrefab: {fileID: 0}
-  content: {fileID: 0}

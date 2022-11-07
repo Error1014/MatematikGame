@@ -11,7 +11,7 @@ public class GenerationPrimer : MonoBehaviour,IPunObservable
     [SerializeField] private Text TextPrimer;
     [SerializeField] private Button[] VariantButtons;
     private PhotonView photonView;
-    public SettingData settingData = new SettingData();
+    public SettingData settingData;
     public static int RightOtv = 0;
     private List<string> operation = new List<string>();
     private string path;
@@ -42,29 +42,44 @@ public class GenerationPrimer : MonoBehaviour,IPunObservable
     }
     #endregion
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(JsonUtility.ToJson(settingData));
+
+        }
+        else
+        {
+            string s = (string)stream.ReceiveNext();
+            File.WriteAllText(path, s);
+            ReadData();
+        }
+
+    }
+
     void Start()
     {
+        GetPath();
         photonView = GetComponent<PhotonView>();
-        if (photonView.IsMine)
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (File.Exists(path))
             {
-                GetPath();
-
-                if (File.Exists(path))
-                {
-                    ReadData();
-                }
+                ReadData();
             }
+        }
+        else
+        {
+            ReadData();
         }
         if (!settingData.isTimeBar) FindObjectOfType<TimeBar>().gameObject.SetActive(false);
         GetPrimer();
 
         ButtonVariant.NextPrimerEvent.AddListener(GetPrimer);
-
-
-
     }
+
+    
     public void GetPrimer()
     {
         int number1 = 0;
@@ -102,7 +117,6 @@ public class GenerationPrimer : MonoBehaviour,IPunObservable
         {
             operation.Add("/");
         }
-
         return operation[Random.Range(0, operation.Count)];
     }
 
@@ -174,17 +188,4 @@ public class GenerationPrimer : MonoBehaviour,IPunObservable
         return value;
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(JsonUtility.ToJson(settingData));
-        }
-        else
-        {
-            File.WriteAllText(path, JsonUtility.ToJson((string)stream.ReceiveNext()));
-            ReadData();
-        }
-        
-    }
 }

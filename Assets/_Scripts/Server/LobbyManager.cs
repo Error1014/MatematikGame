@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
-    public Text LogText;
     private byte maxPlayer = 10;
     [SerializeField] private GameObject SettingBlock;
     void Start()
@@ -44,7 +43,5 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Log(string message)
     {
         Debug.Log(message);
-        LogText.text += "\n";
-        LogText.text += message;
     }
 }

@@ -4,12 +4,14 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using System.IO;
+using Photon.Pun;
 
-public class GenerationPrimer : MonoBehaviour
+public class GenerationPrimer : MonoBehaviour,IPunObservable
 {
     [SerializeField] private Text TextPrimer;
     [SerializeField] private Button[] VariantButtons;
-    private SettingData settingData;
+    private PhotonView photonView;
+    public SettingData settingData = new SettingData();
     public static int RightOtv = 0;
     private List<string> operation = new List<string>();
     private string path;
@@ -42,17 +44,25 @@ public class GenerationPrimer : MonoBehaviour
 
     void Start()
     {
-        GetPath();
-
-        if (File.Exists(path))
+        photonView = GetComponent<PhotonView>();
+        if (photonView.IsMine)
         {
-            ReadData();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                GetPath();
+
+                if (File.Exists(path))
+                {
+                    ReadData();
+                }
+            }
         }
         if (!settingData.isTimeBar) FindObjectOfType<TimeBar>().gameObject.SetActive(false);
         GetPrimer();
-        
+
         ButtonVariant.NextPrimerEvent.AddListener(GetPrimer);
- 
+
+
 
     }
     public void GetPrimer()
@@ -162,5 +172,19 @@ public class GenerationPrimer : MonoBehaviour
             value = number1 + Random.Range(min, max) / number2 + Random.Range(min, max);
         }
         return value;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(JsonUtility.ToJson(settingData));
+        }
+        else
+        {
+            File.WriteAllText(path, JsonUtility.ToJson((string)stream.ReceiveNext()));
+            ReadData();
+        }
+        
     }
 }

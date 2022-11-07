@@ -52,6 +52,12 @@ public class SetingsLevelHard : MonoBehaviour
 
         //SwichTogle.EventToggle.AddListener(SetDataSettings);
     }
+
+    public void TestData()
+    {
+        gameObject.SetActive(true);
+    }
+
     public void SetSettings()
     {
         isTimeBar = IsTimeBar.isTimeBar;

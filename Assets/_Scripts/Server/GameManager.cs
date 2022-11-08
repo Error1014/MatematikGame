@@ -10,7 +10,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject settingData;
     private void Start()
     {
-        PhotonNetwork.Instantiate(settingData.name,Vector2.zero,Quaternion.identity);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(settingData.name, Vector2.zero, Quaternion.identity);
+        }
     }
 
     public void Leave()

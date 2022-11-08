@@ -44,7 +44,6 @@ public class Setting : MonoBehaviour, IPunObservable
         {
             GetPath();
             ReadData();
-            JsonStr = JsonUtility.ToJson(settingData);
         }
         if (photonView.IsMine)
         {
@@ -57,7 +56,9 @@ public class Setting : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)
         {
+            JsonStr = JsonUtility.ToJson(settingData);
             stream.SendNext(JsonStr);
+            Debug.Log(JsonStr);
         }
         else
         {

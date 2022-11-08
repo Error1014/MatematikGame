@@ -10,7 +10,6 @@ public class GenerationPrimer : MonoBehaviour,IPunObservable
 {
     [SerializeField] private Text TextPrimer;
     [SerializeField] private Button[] VariantButtons;
-    private PhotonView photonView;
     public SettingData settingData;
     public static int RightOtv = 0;
     private List<string> operation = new List<string>();
@@ -60,19 +59,8 @@ public class GenerationPrimer : MonoBehaviour,IPunObservable
 
     void Start()
     {
-        GetPath();
-        photonView = GetComponent<PhotonView>();
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (File.Exists(path))
-            {
-                ReadData();
-            }
-        }
-        else
-        {
-            ReadData();
-        }
+
+
         if (!settingData.isTimeBar) FindObjectOfType<TimeBar>().gameObject.SetActive(false);
         GetPrimer();
 

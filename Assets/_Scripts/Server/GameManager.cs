@@ -7,7 +7,11 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-
+    public GameObject settingData;
+    private void Start()
+    {
+        PhotonNetwork.Instantiate(settingData.name,Vector2.zero,Quaternion.identity);
+    }
 
     public void Leave()
     {

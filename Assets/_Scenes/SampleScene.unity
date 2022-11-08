@@ -1119,6 +1119,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1752841245}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Leave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1805867609}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: NavigateHome
@@ -3249,6 +3261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef50af0ea8251be4997671066b25bbee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingData: {fileID: 6004787396180836927, guid: 504341e05e1b6294f8a844124459eeba, type: 3}
 --- !u!1 &1805867604
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,16 +4,14 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
+using System.IO;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public GameObject settingData;
     private void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.Instantiate(settingData.name, Vector2.zero, Quaternion.identity);
-        }
+        PhotonNetwork.Instantiate(settingData.name, Vector2.zero, Quaternion.identity);
     }
 
     public void Leave()
@@ -34,5 +32,4 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         Debug.LogFormat("Player {0} left room", otherPlayer.NickName);
     }
-
 }

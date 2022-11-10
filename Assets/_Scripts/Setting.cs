@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System.IO;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
-public class Setting : MonoBehaviour, IPunObservable
+public class Setting : MonoBehaviour
 {
     public SettingData settingData;
     [SerializeField] private GenerationPrimer generationPrimer = new GenerationPrimer();
@@ -38,34 +40,51 @@ public class Setting : MonoBehaviour, IPunObservable
     #endregion
     void Awake()
     {
-        generationPrimer = FindObjectOfType<GenerationPrimer>();
         photonView = GetComponent<PhotonView>();
         if (PhotonNetwork.IsMasterClient)
         {
             GetPath();
             ReadData();
+            JsonStr = JsonUtility.ToJson(settingData);
+            Debug.Log(JsonStr);
+            SendDataSetting();
         }
-        if (photonView.IsMine)
-        {
-            Debug.Log("Good");
-        }
+        generationPrimer = FindObjectOfType<GenerationPrimer>();
         generationPrimer.settingData = settingData;
     }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public static UnityEvent SetDataSetting= new UnityEvent();
+    public void SendDataSetting()
     {
-        if (stream.IsWriting)
-        {
-            JsonStr = JsonUtility.ToJson(settingData);
-            stream.SendNext(JsonStr);
-            Debug.Log(JsonStr);
-        }
-        else
-        {
-            GetPath();
-            JsonStr = (string)stream.ReceiveNext();
-            File.WriteAllText(path, JsonStr);
-            settingData = JsonUtility.FromJson<SettingData>(File.ReadAllText(path));
-        }
+        photonView.RPC("Send", RpcTarget.AllBufferedViaServer,JsonStr);
+        Debug.Log("Отправленно");
     }
+    [PunRPC]
+    public void Send(string json)
+    {
+        settingData = JsonUtility.FromJson<SettingData>(json);
+        generationPrimer.settingData = settingData;
+        SetDataSetting.Invoke();
+        Debug.Log("Получено");
+    }
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        JsonStr = JsonUtility.ToJson(settingData);
+    //        stream.SendNext(JsonStr);
+    //        Debug.Log(JsonStr);
+    //    }
+    //    else
+    //    {
+    //        JsonStr = (string)stream.ReceiveNext();
+    //        JsonUtility.FromJsonOverwrite(JsonStr, settingData);
+    //    }
+    //}
+
+    //public void OnConnectedToMaster()
+    //{
+    //    throw new System.NotImplementedException();
+    //}
+
+
 }

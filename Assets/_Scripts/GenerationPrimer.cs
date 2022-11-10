@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System.IO;
 using Photon.Pun;
 
-public class GenerationPrimer : MonoBehaviour,IPunObservable
+public class GenerationPrimer : MonoBehaviour
 {
     [SerializeField] private Text TextPrimer;
     [SerializeField] private Button[] VariantButtons;
@@ -41,28 +41,12 @@ public class GenerationPrimer : MonoBehaviour,IPunObservable
     }
     #endregion
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(JsonUtility.ToJson(settingData));
-
-        }
-        else
-        {
-            string s = (string)stream.ReceiveNext();
-            File.WriteAllText(path, s);
-            ReadData();
-        }
-
-    }
 
     void Start()
     {
-
-
         if (!settingData.isTimeBar) FindObjectOfType<TimeBar>().gameObject.SetActive(false);
-        GetPrimer();
+        
+        Setting.SetDataSetting.AddListener(GetPrimer);
 
         ButtonVariant.NextPrimerEvent.AddListener(GetPrimer);
     }
